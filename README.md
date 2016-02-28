@@ -1,7 +1,7 @@
 # T2bW-Fastsim-privateprod
 Private production of SUSY T2bW Fastsim samples
 
-To do private production:
+## To do private production:
 0) For *.sh run 'source X.sh', and for *.py run 'python X.py'\n
 1) makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py
 2) Edit the *_cfg.py to make template scripts (see *Template*_cfg.py), valid for any mass point
@@ -13,7 +13,7 @@ To do private production:
 8) Submit next step using batchCrab again. 
 9) After last step, ntuplize (yes, there are eg 100 files per mass point from last step)
 
-Don't forget:
+## Useful commands
 to cmsenv in correct CMSSW repo
 source  /afs/cern.ch/cms/cmsset_default.sh
 source /cvmfs/cms.cern.ch/crab3/crab.sh
