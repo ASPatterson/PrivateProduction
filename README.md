@@ -1,7 +1,10 @@
 # T2bW-Fastsim-privateprod
 Private production of SUSY T2bW Fastsim samples
 
-## To do private production:
+## LHE and LHE decay:
+See fastsim-instructions.txt to find/produce LHE files, then decay (ie inject) them to the right final state (branching fractions and masses).
+
+## LHE to miniAODv2:
 For *.sh run 'source X.sh', and for *.py run 'python X.py'
 
 makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py
