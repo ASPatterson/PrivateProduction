@@ -2,8 +2,9 @@
 Private production of SUSY T2bW Fastsim samples
 
 ## To do private production:
--0) For *.sh run 'source X.sh', and for *.py run 'python X.py'\n
--1) makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py
+For *.sh run 'source X.sh', and for *.py run 'python X.py'
+
+makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py
 -2) Edit the *_cfg.py to make template scripts (see *Template*_cfg.py), valid for any mass point
 -3) Edit the two template scripts (two per step, cmssw & crab) as necessary for white/blacklists, events/job, filein and fileout
 -4) Run makeCMSSWCrabConfigs.py for (all steps and) a specific mass point to generate crab (crabSubmit*.py) and cmssw (submit*_cfg.py) scripts
