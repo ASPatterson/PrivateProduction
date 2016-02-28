@@ -1,17 +1,20 @@
-# T2bW-Fastsim-privateprod
-Private production of SUSY T2bW Fastsim samples
+# Private production
+Private production of SUSY samples, centered on T2bW Fastsim made in Feb 2016.
+Includes Fullsim instructions and files (the new Fastsim scripts in this repo would also help out) Full_Fastsim.instructions.txt and the Fullsim attachments tarball.
 
 ## LHE and LHE decay:
-See fastsim-instructions.txt to find/produce LHE files, then decay (ie inject) them to the right final state (branching fractions and masses).
+See Full_Fastsim.instructions.txt to find then decay LHE files (ie inject them with desired decays, branching fractions, and masses). Follows this github tutorial closely (which also shows how to generate LHE files):
+
+https://github.com/CMS-SUS-XPAG/GenLHEfiles/blob/master/Run2Mechanism/README.md
 
 ## LHE to miniAODv2:
-For *.sh run 'source X.sh', and for *.py run 'python X.py'
+For my *.sh scripts run 'source X.sh', and for *.py run 'python X.py'. Look over and defuse bash scripts before running, they're dangerous in some places (eg 'for i in $(ls *)')
 
-makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py
+First use makeCmsDriver*, to initialize the CMSSW repos necessary for CRAB, and to generate the basic cmssw scripts, *_cfg.py, using cmsDriver commands. 
 
 Edit the *_cfg.py to make template scripts (see *Template*_cfg.py), valid for any mass point
 
-Edit the two template scripts (two per step, cmssw & crab) as necessary for white/blacklists, events/job, filein and fileout
+Edit the two template scripts (one each for cmssw & crab) as necessary for white/blacklists, events/job, filein and fileout. Careful not to forget to whitelist T2_US_* if you must.
 
 Run makeCMSSWCrabConfigs.py for (all steps and) a specific mass point to generate crab (crabSubmit*.py) and cmssw (submit*_cfg.py) scripts
 
