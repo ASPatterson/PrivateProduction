@@ -1,0 +1,700 @@
+Private production of Full or Fastsim samples
+Updated Feb 2016
+Alex Patterson
+
+Works at either cmslpc or lxplus. I've done CRAB from both just fine.
+
+Example files are in the MC tutorial's git repo, or in mine:
+https://github.com/CMS-SUS-XPAG/GenLHEfiles/blob/master/Run2Mechanism/README.md
+https://github.com/ASPatterson/T2bW-Fastsim-privateprod/
+
+; -----------------------------------------------------------------------------
+;
+; Links
+; -----------------------------------------------------------------------------
+
+Tutorial for everything (Full and Fast, and even making LHE)
+[0] https://github.com/CMS-SUS-XPAG/GenLHEfiles/blob/master/Run2Mechanism/README.md
+
+A long presentation on generators, jet matching, (x)qcut
+[1] https://cp3.irmp.ucl.ac.be/projects/madgraph/attachment/wiki/FHEP/Mattelaer_parton_shower_matching_merging.pdf
+
+CRAB3
+[2] https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/Crab3DataHandling
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3AdvancedTutorial
+	see exercise 2 for file-based splitting in crab config
+
+CRAB job monitoring (delay < about 1hour)
+http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/
+
+Short description of (x)qcut
+[3] http://hep.ucsb.edu/people/cag/Matching.pdf
+
+How to tell if you got qcut correct
+[4] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSubgroupMC#Measure_proper_value_of_qCut
+
+Global tags reference
+[5] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFrontierConditions#Special_Global_Tags_for_Run2_MC
+
+FastSim twiki
+[6] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFastSimulationExamples#Run2_Spring15_recipe
+
+A mention about a certain ignorable Pythia8 error message ... 
+[7] https://twiki.cern.ch/twiki/bin/view/MPGD/DisplacedEMuHLTStudy
+
+Defines Premixing, also see [6]
+[8] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSimulation#Pre_Mixing_Instructions
+
+cmsDriver
+[9] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFastSimulation
+
+Twiki on specific RunIISpring15DR74 campaign
+[10] https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVMCcampaignRunIISpring15DR74x
+
+Our miniaod sources
+[11] https://github.com/UCSBSusy/13TeVAnalysis/blob/74X_prod_v2/AnalysisBase/Analyzer/run/datasets.conf
+
+mcm
+[12] https://cms-pdmv.cern.ch/mcm/requests?produce=%2FTTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8%2FRunIIWinter15GS-MCRUN2_71_V1-v2%2FGEN-SIM&page=0&shown=17516725375
+
+das
+[13] https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2Fglobal&input=dataset%3D%2F*%2F*RunIISpring15DR74*%2FMINIAODSIM
+
+cmsDriver common error solution (VtxSmeared)
+[14] https://twiki.cern.ch/twiki/bin/view/Main/RobinCMSSWErrors
+
+LHE decay block format
+[15] http://xxx.lanl.gov/pdf/hep-ph/0311123v4.pdf
+
+SUSY xsecs
+[20]
+https://twiki.cern.ch/twiki/bin/view/LHCPhysics/
+https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SUSYCrossSections13TeVstopsbottom
+
+; -----------------------------------------------------------------------------
+;
+; Set of links for Fastsim (ignore numbering)
+; -----------------------------------------------------------------------------
+LHE files (still good as of Feb 2016 per MC conveners)
+[0] eos ls store/group/phys_susy/LHE/13TeV/stop_stop_v2 |grep stop_stop
+that tutorial again, fastsim section
+[1] https://github.com/CMS-SUS-XPAG/GenLHEfiles/blob/master/Run2Mechanism/README.md#fastsim
+fastsim twiki
+[2] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFastSimulation
+or https://twiki.cern.ch/twiki/bin/view/CMS/FastSim
+mcm lookup for a t2bw fastsim sample we use
+[3] https://cms-pdmv.cern.ch/mcm/requests?produce=%2FSMS-T2bW_X05_mStop-300to400_mLSP-0to275_TuneCUETP8M1_13TeV-madgraphMLM-pythia8%2FRunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1%2FMINIAODSIM&page=0&shown=127
+for that t2bw sample, its "Get Setup Command"s back to LHE
+[4] https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/SUS-RunIISpring15MiniAODv2-00330
+[5] https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/SUS-RunIISpring15FSPremix-00218
+[6] https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/SUS-RunIIWinter15pLHE-00208
+I forget
+[7] https://cms-pdmv.cern.ch/mcm/requests?produce=%2FSMS-T2bW_X05_mStop*TuneCUETP8M1_13TeV-madgraphMLM-pythia8%2FRunIIWinter15pLHE-MCRUN2_71_V1-v1%2FLHE&page=0&shown=127
+Fastsim hypernews
+[8] https://hypernews.cern.ch/HyperNews/CMS/get/famos.html
+
+; -----------------------------------------------------------------------------
+;
+; 'Getting Started' from [0]
+; -----------------------------------------------------------------------------
+If you plan to _make_ LHE, follow their 'Getting Started' closely.
+If you plan to use the existing stop-stop LHE files, continue.
+
+; -----------------------------------------------------------------------------
+;
+; Find and copy existing 'undecayed' LHE files
+; -----------------------------------------------------------------------------
+
+To 'decay' means to inject the branching ratios and masses.
+Preexisting LHE are 'undecayed' and need to be injected. 
+The preexisting LHE are at CERN EOS.
+
+Start looking in /store/group/phys_susy/:
+	eos ls /store/group/phys_susy
+Here's some old 8TeV stuff:
+ 	eos ls /store/group/phys_susy/LHE/stop_stop/T2tt_Undecayed
+The "unwgt" means undecayed. Not sure why. The 13TeV ones are in:
+	eos ls /store/group/phys_susy/LHE/13TeV/stop_stop_v2
+Ignore the LSP mass, it doesn't affect the files' physics tables, and is 
+injected with a different value when we decay them.
+Copy individually to /tmp/ and then to AFS:
+	eos cp /eos/cms/store/group/phys_susy/LHE/13TeV/stop_stop_v2/stop_stop800_LSP450_run62131_unwgt.lhe.gz /tmp/
+	cp /tmp/stop_stop800_LSP450_run62131_unwgt.lhe.gz my_LHE_undecayed/
+Leave then zipped, since the decay py can unzip them for you. 
+Compressed files (.lhe.gz) are 200 MB or so, decompressed (.lhe) 1.2 GB or so. 
+The decay py wants a formatted name. See its description at the git tutorial.
+	<name>_<mother mass>_<other stuff without underscores>_undecayed.lhe(.gz)
+eg
+	stopstop_600_LSP50-41645_undecayed.lhe.gz
+I made a bash script to do the renaming, in my repo (see way above). 
+
+; -----------------------------------------------------------------------------
+;
+; Decay the undecayed LHE
+; -----------------------------------------------------------------------------
+
+I recommend, if you're running from LPC, you SCP the undecayed LHE from LXPLUS
+to LPC, then decay at LPC.
+
+You'll use these three scripts, located in GenLHEfiles/Run2Mechanism under
+the LHE git bundle you install in 'Getting Started' from the git tutorial:
+	update_header.py, create_update_header_config.py, makeMassDict.py
+
+Unzip an LHE (gzip -dc X.lhe.gz > X.lhe) to check a few things.
+Check if the undecayed files have an LSP mass (will be found & injected by 
+the decay py later)
+	head -n 5000 stopstop_650_LSP325x58113_undecayed.lhe|grep DECAY
+If you see "DECAY  1000022  0.0" or similar then you're OK. 
+If not, remember to pass the flag --stableLSP to update_header.py later.
+
+Open create_update_header_config.py and manually change the option block at 
+bottom. Here is an example for T2tt. If you're not doing T2tt or T1qqqq 
+(see the comments above the option block for possible preset decays), eg T2bW,
+you'll leave decay blank and specify a decaystring explicitely. For T2tt you 
+can leave decaystring empty.
+Note 'name' must match the start of your LHE filenames.
+    options = {"name": "stopstop",
+               "pdg": "1000006",
+               "nevents": "-1",
+               "inputdir": "/afs/cern.ch/work/a/apatters/private/LHE_undecayed",
+               "outputdir": "/afs/cern.ch/work/a/apatters/private/LHE_decayed",
+               "model": "",
+               "slha": "",
+               "mass": "mass_dict.py",
+               "decay": "T2tt",
+               "decaystring": ""
+               }
+
+If you're doing T2tt, skip this paragraph on decaystring, it's one of the defaults.
+If T2tb or T2bw, stay.
+The tutorial on github [0] gives a decaystring example. It's injected into the 
+LHE file, so you can look straight at the DECAY block format for LHE files 
+at [15], pages 21-22, for the clearest definitions.
+Here's a decay string for T2bW (all one line) to be put in 
+create_update_header_config.py. Keep the spacing, newlines,etc. Format is below
+>>>
+	"decaystring" : "\"DECAY 1000006 0.1\"\n  \"   1.0  2  5  1000024\"\n  \"DECAY 1000024 0.5\"\n  \"  1.0  2  24  1000022\"\n",
+>>>
+In english it says
+	1000006 (~t) 		->  5 (b) + 1000024 (~chi+_1) with BR 1.0
+	1000024	(~chi+_1) 	-> 24 (W) + 1000022 (~chi0_1) with BR 1.0
+
+And one for T2tb (all one line):
+>>>
+"decaystring" : "\"DECAY 1000006 0.1\"\n  \"   0.5  2  5  1000024\"\n    \"   0.5  2  6  1000022\"\n  \"DECAY 1000024 0.5\"\n  \"  1.0  2  24  1000022\"\n",
+>>>
+The antiparticle decays are implied. The numbers 0.1 and 0.5 are the total 
+decay widths; I took those values from the git tutorial. The format of the
+decay block in LHE files is given in [15]. Its format (eg in tutorial.cfg 
+which you'll generate) is
+	DECAY <mother pdgid> <mother decay width>
+	<BR to first mode> <# daughters> <pdgid daughter 1> <pdg daughter 2> 
+	<BR to second mode> <# daughters> <pdgid daughter 1> <pdg daughter 2> 
+
+Run the script to make the header config file
+	python create_update_header_config.py
+Output will be tutorial.cfg. Check it over.
+If you're doing a custom (not T2tt, T1tttt, etc) job, change 'model' to a good 
+name for the files, 'T2bw', 'T2tb', etc, or else they'll all say 'custom' for
+the first step.
+
+The decaystring in tutorial.cfg for T2bW looks like:
+>>>
+	decaystring = "DECAY 1000006 0.1"
+		  "   1.0  2  5  1000024"
+		  "DECAY 1000024 0.5"
+		  "  1.0  2  24  1000022"	
+>>>
+And for T2tt looks like (from memory, it's done automatically so don't worry):
+>>>
+	decaystring = "DECAY 1000006 0.1"
+		  "   1.0  2  6  1000022"
+>>>
+And for T2tb:
+>>>
+decaystring = "DECAY 1000006 0.1"
+          "   0.5  2  5  1000024"
+          "   0.5  2  6  1000022"
+          "DECAY 1000024 0.5"
+          "  1.0  2  24  1000022"
+>>>
+
+Now use makeMassDict.py to create the mass dictionary file, mass_dict.py.
+I made them myself since they were simple.
+Here's for the three usual T2tt mass points:
+>>>
+mass_dict = {'850': [{'1000022': 100}],
+             '650': [{'1000022': 325}],
+             '500': [{'1000022': 325}]}
+>>>
+See the tutorial on github for more complicated cases. 
+Here's mass_dict.py for T2bW with mass points 700/100 and 600/50 (stop/lsp) 
+with x=0.25, 0.50, 0.75. This causes the LHE processing py to process the 
+input LHE (which says only the stop mass) for each condition you list here:
+>>>
+# Configuration dictionary for three different configurations
+conf1 = {"1000024" : 250,
+         "1000022" : 100}
+conf2 = {"1000024" : 400,
+         "1000022" : 100}
+conf3 = {"1000024" : 550,
+         "1000022" : 100}
+conf4 = {"1000024" : 187.5,
+         "1000022" : 50}
+conf5 = {"1000024" : 325,
+         "1000022" : 50}
+conf6 = {"1000024" : 462.5,
+         "1000022" : 50}
+# Required mass dictionary.
+mass_dict = {"700" : [conf1, conf2, conf3],
+             "600" : [conf4, conf5, conf6]}
+>>>
+
+With tutorial.cfg and mass_dict.py created and checked,
+Process the LHE files using update_header.py. For 30 LHE files it takes an 
+hour or two. 
+	python update_header.py tutorial.cfg
+If you get the error
+	ImportError: No module named argparse
+then you need to cmsenv.
+Watch progress:
+	watch -n 10 -d 'ls /eos/uscms/store/user/apatters/mcproduction/decay/CMSSW_7_4_7/prod/GenLHEfiles/Run2Mechanism/decayed/'
+
+NOTE: I ran a series of tests to determine what influence the LSP mass has on
+the undecayed LHE files. First: grabbed two different LSP mass samples 
+(different seeds as well),
+	T2tt(800,400), T2tt(800,100)
+and diff'ed their LHE files. The only differences are in the LSP mass entry 
+in the mass spectrum block, and everything depending just on the random seed. 
+The mixing matrices and branch fractions were the SAME between these two LHE 
+files coming to us with different LSP masses. Second test: Diff two LHE files 
+with same LSP mass but different random seed, to see what exactly is 
+affected by it. Result is exactly those entries which were different when using
+two different LSP masses in the first test. Thus, the LSP mass changes one 
+thing: the LSP mass entry in the mass spectrum block. That's it.
+The difference between processed LHE files which, using update_header.py, were 
+set to two different LSP masses (same seed), is only in the mass spectrum block 
+and the model strings. Thus, it's as minimal as can be -- we're free to use
+these unprocessed LHE files and change the LSP masses without physical effect. 
+** this assumes the official LHE files were made without the obvious error of 
+forgetting to take into account LSP masses when making mixing matrices, BRs,...
+
+; -----------------------------------------------------------------------------
+;
+; Verify the decayed LHE
+; -----------------------------------------------------------------------------
+
+	head -n 5000 T2tt_850_LSP100x67254_decayed_1000022_100.lhe|grep DECAY
+Do you see the DECAY string for stop:
+	DECAY  1000006  0.1 
+and, if charginos present,
+	DECAY 1000024 0.5
+Now pipe instead into less and search ("/<search string>") for its decay:
+(for T2tt)
+	DECAY  1000006  0.1
+   	   1.0  2  1000022 6      # t1 -> ~chi_10 t 
+(for T2bW)
+	DECAY 1000006 0.1
+	   1.0  2  5  1000024
+	DECAY 1000024 0.5
+	   1.0  2  24  1000022
+(for T2tb)
+	DECAY 1000006 0.1
+	   0.5  2  5  1000024
+	   0.5  2  6  1000022
+	DECAY 1000024 0.5
+	  1.0  2  24  1000022
+The DECAY block was changed properly.
+
+Now check the mass spectrum block:
+	head -n 5000 T2tt_850_LSP100x67254_decayed_1000022_100.lhe|less
+Page down to the mass spectrum block ("BLOCK MASS  # Mass Spectrum"). Is there
+(for T2tt, 850/100 mass splitting STOP/LSP)
+	1000006     850       # ~t_1
+	1000022     100       #
+(for T2bW, 600/187.5/50 mass splitting STOP/CHARGINO/LSP)
+   1000006     600       # ~t_1
+      1000022     50       # 
+      1000024     187.5       # 
+If so, good.
+
+Now check the event "model strings" are present (wording from tutorial [0]).
+	head -n 5000 T2tt_850_LSP100x67254_decayed_1000022_100.lhe|grep '# model'
+You should see for each event the comment
+(for T2tt)
+	# model T2tt_850_100
+(for T2bW, unless you changed the 'model' string when updating the header)
+	# model custom_600_187.5_50
+(for T2tb, where I did change the 'model' string to model=t2tb)
+	# model t2tb_700_250_100
+
+; -----------------------------------------------------------------------------
+;
+; (Fullsim section from Summer '15): mimicking the 74X production steps
+; -----------------------------------------------------------------------------
+
+See my Fastsim repo for scripts to automate making cmssw/crab scripts and other
+small tasks for this section.
+
+To find the 74X productions steps including the genfragments, find the DAS
+sample name at eg [13]. Then plug it into MCM ([11],[12]) and use the 'parent'
+button on DAS to go up the chain of processing however far back you need.
+Copy the name into MCM and hit the actions button "Get setup command" to get
+the genfragment (curl'd in the setup commands of /GEN or /GENSIM samples)
+and the cmsDriver commands necessary to produce the sample.
+
+I took the production commands for existing TTbar/Wjets in 74X and packed 
+them into two scripts,
+	gensim.sh (step 0), digireco.sh (steps 1-3)
+These produce the configuration py's to be used with cmsRun.
+
+Note now the different settings for GEN-SIM and DIGI-RECO steps:
+GEN-SIM settings:
+	called "RunIIWinter"
+	7_1_15_patch1
+	--conditions MCRUN2_71_V1::All
+	SCRAM_ARCH=slc6_amd64_gcc481
+DIGI-RECO settings:
+	called "RunIISpring" (a whole season passed!)
+	7_4_1_patch1
+	--conditions MCRUN2_74_V9
+	SCRAM_ARCH=slc6_amd64_gcc491
+
+Brief overview of production steps. Below paragraphs have details.
+	Run gensim.sh (finicky, so need to run each line manually)
+	Edit resulting SUS_step0_cfg.py for input/output file/path names
+	Run cmsRun on this file for a few events locally (debug step)
+	** can run digireco.sh and then do cmsRun for 100 events locally
+	   through all the steps, and look at resulting miniAOD
+	Edit crabSubmitStep0.py for:
+		requestName, workArea, psetName, primaryDataset, 
+		unitsPerJob, NJOBS, outLFNDirBase, white/blackList
+	Submit crabSubmitStep0.py to grid with --dryrun (debug step)
+	Submit it to grid. ETA for 40*2500 events is 13 hours.
+	
+ 	For steps1-3, the filenames are given in a .txt file specified in
+	crabSubmitStepX.py. The input file name in SUS_stepX_cfg.py should
+	be commented out -- it won't be used. 	
+	Run digireco.sh (can do like ./digireco.sh)
+	Comment out input file name in SUS_stepX_cfg.py
+	** to cmsRun locally steps1-3, ignore previous step
+	Gather list of files, including redirectors, into <mass point>.txt
+	Specify that list in crabSubmitStepX.py, and dryrun CRAB
+	Submit to grid. Events were pruned in step0 to ~25%.
+	Time for steps1-3 is much short than step0.
+	
+Brief data usage stats:
+	For 3 signal points with 500k events (in LHE) each, 
+		LHE: 20GB
+		after step0: 0.6TB, step1: 1.2TB, step2: 0.4TB, step3: (smaller)
+
+Read the next few paragraphs before running gensim.sh and digireco.sh.
+You'll edit and run these two scripts to make the cmsRun py's, then run cmsRun
+interactively for a few events to make sure they work, then modify 
+the crab submission script crabSubmitStepX.py before issuing a CRAB dryrun 
+and then sending the jobs to the grid. 
+
+In the sh scripts don't bother changing the filein/fileout names. 
+You'll change them in the resulting SUS_stepX_cfg.py.
+Step0 efficiency (GEN-SIM) is ~ 25%. I saw 2500 events drop to 632 events.
+
+When running Pythia8 there's often a warning message:
+	"An attempt was made to read a Run product before endRun() was called."
+According to [7] this can be ignored.
+
+TO RUN GENSIM.SH
+Modify genfragment.py for qcut, if you need to. It won't change between 
+samples, and is only needed for step 0 (GEN-SIM).  
+You need to run each line in gensim.sh by hand. Use bash for it:
+	bash
+	export SHELL=/bin/bash
+Reason: I couldn't get "git cms-addpkg" to work in series in a script, 
+as it spawns a new process or something.
+	-_('-')_-
+Note that it places your genfragment.py in a special directory, and
+compiles a few times so cmsDriver can find it.
+Check the outputted SUS_step0_cfg.py for the code from genfragment.py. It should 
+be in it. If not, cmsDriver didn't find genfragment.py. Errors might include
+	'ProductNotFound VtxSmeared'
+The problem lies in getting cmsDriver to see genfragment.py. 
+See [14] for remedies. Basically, do scram b clean; scram b in the python/ 
+directory where you put your genfragment.py, then back out to src/ and do just
+scram b. You should see in your gen step _cfg.py the big genfragment has 
+been injected. Also cmsenv in the correct CMSSW repo.
+
+TO RUN DIGIRECO.SH
+It uses the newer CMSSW version, which digireco.sh should install, scram, and
+cmsenv automatically. You'll need to cmsenv manually in src/ after running 
+digireco.sh. In step 1 it queries DAS for the pileup datasets, which are 
+located at:
+	das:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM
+are are physically at:
+	/store/mc/RunIIWinter15GS/MinBias_TuneCUETP8M1_13TeV-pythia8/GEN-SIM/MCRUN2_71_V1-v1/
+The timeout for the DAS query (5 mins?) is sometimes reached. No kidding.
+Thus make sure you see in your standard output when running digireco.sh:
+	the query is file dataset = <above DAS dataset>
+	found files: [<ten root file names from /store/>]
+The pileup in DAS is a few TB total so it just takes the first couple samples.
+
+You can do 100 events interactively through all steps, and validate the 
+resulting miniAOD using the next section.
+
+GENFRAGMENT MODIFICATIONS:
+There are two things we can change in genfragment.py:
+qcut: 50 we're doing for now, since xqcut was 30 for T2tt LHE files,
+	and 50 was used for T2tt in the 73X samples.
+nJetMax: 5 was used for 74X W, and 2 is the SUSY default says [0]:
+	"The nJetMax should be set to the largest number of extra partons 
+	that are present in the lhe file. The SUSY default for this is 2."
+	nJetMax=2 was used by Campaignari in the 8 TeV search, per
+	their analysis note:
+	"including up to two additional partons at the matrix element level"
+
+CRAB SUBMISSION:
+Remember to cmsenv in the CMSSW version corresponding to the step
+you're submitting to CRAB. In step1 there can be the error:
+	"No module named mix_2015_25ns_Startup_PoissonOOTPU_cfi"
+which is due to this.
+
+A generic  CRAB submit file for submitting these steps is included:
+	crabSubmitStep{0,1,2,3}.py
+It was derived from the example at [2] in section "3) CRAB configuration file 
+to generate MC events". Change the following:
+	requestName, workArea, psetName, primaryDataset, 
+	unitsPerJob, NJOBS, outLFNDirBase, white/blackList
+I found that at first, anyplace except MIT fails. This was temporary.
+You won't get 100% of jobs to go through all the steps. Let some die, as 
+they're unbiased. You just lose a few events. 
+
+Step0 (GEN-SIM) requires event-based splitting, running over the LHE files.
+Steps1,2,3 (DIGI-RECO) require file-based splitting, as step0 outputs
+one file per job. The CRAB submission scripts will work differently.
+
+To do event-based splitting with a 100k-event input LHE file, use
+	config.JobType.pluginName = 'PrivateMC'
+	...
+	config.Data.splitting = 'EventBased'
+	config.Data.unitsPerJob = 2500
+	NJOBS = 40 # just a python variable, not necessary
+	config.Data.totalUnits = config.Data.unitsPerJob * NJOBS,
+whereas for file-based splitting with 40 input (2.5k events each) roots, do
+	config.JobType.pluginName = 'Analysis'
+	config.Data.userInputFile = 'list.txt'
+	config.Data.splitting = 'FileBased'
+	config.Data.unitsPerJob = 1 
+	config.Data.totalUnits = 100000
+where list.txt includes the absolute paths to your input files, 
+including redirectors, ie
+	root://cms-xrd-global.cern.ch///store/blah/T2tt_blah_step0_32.root
+Note the CRAB UI has some bugs: If you're doing file-based 
+splitting, and use the 
+	crab submit -c crabSubmitX.py --dryrun
+try (as you should, to catch errors), the CRAB UI will report 
+	Task consists of 40 jobs to process 40 events
+	.... longest job ... 1 events, with ... estimated 0 minutes
+when it really means to say:
+	Task consists of 40 jobs to process 40 files
+	... longest job ... 1 file, with ... estimated ?? minutes
+So in file-based splitting 'units' means FILES in the CRAB UI, whereas for
+event-based splitting 'units' means EVENTS. Lumi-based splitting you'll 
+have to look up, if you use it.
+
+Remember to only include in list.txt
+the filenames for a single sample (otherwise samples will become mixed).
+Note we're being a bit deceptive switching the pluginName just to get it
+to work. See [2] for CRAB's rules -- for PrivateMC you can only do event-based
+splitting. I don't know why. 
+Note: totalUnits should stay the same throughout the chain of steps.
+
+MODIFYING CRAB SUBMISSION SCRIPTS FOR OTHER SAMPLES IN SAME STEP:
+I replace sample names and resubmit using a script with 15 lines such as:
+	sed -i 's/T2tt_850_LSP100x55558_decayed_1000022_100/T2tt_850_LSP100x57800_decayed_1000022_100/g' {crabSubmit.py,SUS_step0_cfg.py}
+	crab submit -c crabSubmit.py
+For the next steps, remember to replace step0 with step1 in sed, and also
+in those two py's. 
+
+MODIFYING CRAB SUBMISSION SCRIPTS FOR OTHER STEPS:
+Switch to a different crab script, eg crabSubmitStep2.py, and change the 
+workArea and psetName to avoid overlap with previous steps.
+
+To dry run a CRAB job (it's worth it, takes 5 mins, and can find all errors 
+except for whether the file in/out are accessible - see next comment for this)
+	crab submit -c crabSubmit.py --dryrun
+
+File in/out names note: In the cmsRun py, the filein can be a full path:
+	root://cms-xrd-global.cern.ch///store/user/...
+while fileout MUST be just a filename (no directories at all):
+	X.root
+In the CRAB py, the config.Data.outLFNDirBase preceeds the output file name:
+	config.Data.outLFNDirBase = '/store/user/...
+While CRAB jobs are running, temporary .roots (for each job) are put into 
+	<crab_T2tt_500_LSP325x36525_decayed_1000022_325_step0>/<config.Data.primaryDataset>/crab_<requestName>/<some numbers>
+For each submission the directory with logs etc is 
+	<workArea>/crab_<requestName>/
+Submit to CRAB:
+	crab submit -c crabSubmit.py	
+Check its status (takes roughly 20 mins for statuses to show change)
+	crab status -d <workArea>/crab_<requestName>
+
+; -----------------------------------------------------------------------------
+;
+; validation of miniAODs (viewing gen-level decay chains)
+; -----------------------------------------------------------------------------
+
+If it's a local file (say X_step3.root from private production), move the
+ X_step3.root to a CMSSW version with the framework. If it's on EOS,
+just use a "root:<redirector>" instead of "file:" in the following. If it's 
+via DAS, use 
+
+Modify analyze() in 
+	AnalysisBase/Analyzer/plugins/TestAnalyzer.cc
+to read
+	void analyze() {
+		ParticleInfo::printGenInfo(*genparticles->genParticles_,-1);
+		fill();
+	}
+and compile it with scram b. Go into the test folder and run:
+	cmsRun runTestAnalyzer.py inputFiles=file:X_step3.root maxEvents=15>&meow &
+	tail -f meow
+You should see, for each event, the correct decay chain. If not, don't run the
+whole lot through CRAB before fixing the problems! 
+Remember to remove the printGenInfo line before ntuplizing many events. 
+
+; -----------------------------------------------------------------------------
+;
+; validation of AODs (viewing gen-level decay chains) (Thanks Nick!)
+; -----------------------------------------------------------------------------
+
+This is tougher than miniAODs.
+In 
+	/python/analyzer_configuration_cfi.py
+change
+	packedGenParticles  = cms.InputTag('packedGenParticles')
+	prunedGenParticles  = cms.InputTag('prunedGenParticles')
+to
+	packedGenParticles  = cms.InputTag('genParticles')
+	prunedGenParticles  = cms.InputTag('genParticles')
+
+In 
+	/plugins/TestAnalyzer.cc
+comment out ALL initialize() calls except genparticles, which you change to 
+	if(isMC()) initialize(cfg, "Gen", GENPARTICLES,0);
+	
+In
+	/test/runTestAnalyzer.py
+comment out all process.p calls near the bottom except TestAnalyzer. Do this
+under all the lines (if and else) for good measure. They should look like:
+
+    process.p = cms.Path(//process.patJetCorrFactorsReapplyJEC *
+                         //process.patJetsReapplyJEC        *
+                         //process.ak4PatAssocSeq           *
+                         //process.ca8JetsSeq               *
+                         //process.egmGsfElectronIDSequence *
+                         //process.egmPhotonIDSequence      *
+                         //process.QGTagger                 *
+                         //process.HBHENoiseFilterResultProducer *
+                         process.TestAnalyzer)
+
+Now cmsRun should accept files in AOD format, say discovered in DAS.
+	cmsRun runTestAnalyzer.py inputFiles=root:X.root maxEvents=15>&meow &
+	tail -f meow
+
+; -----------------------------------------------------------------------------
+;
+; ntuplizing under our framework
+; -----------------------------------------------------------------------------
+
+(genparticles instructions thanks to Huilin)
+
+To save all genparticles, open
+	AnalysisBase/Analyzer/python/analyzer_configuration_cfi.py
+and set
+	saveAllGenParticles = cms.untracked.bool(True)
+
+Set up a CMSSW distribution. Check that 
+	AnalysisBase/Analyzer/plugins/TestAnalyzer.cc
+doesn't have that print(genparticles) line. 
+Copy
+	AnalysisBase/Analyzer/run/datasets.conf
+to a new file, say t2bw_datasets.conf,
+with entries which point to your (local) miniAODs, resulting from step3 above. 
+Also include
+the xsecs and a signal name which can be used with the find command to 
+discover your miniAODs in that directory. The xsecs are at [20]. 
+Move the miniAODs to their own directory, as the find command basically
+looks for any roots in the directory (starting with the name you list)
+ and assumes they're for that signal point. For example, one entry might be 
+
+signal custom_600_1875 0.174599 /eos/uscms/store/user/apatters/13TeV/t2bw_miniAODs/t2bw_600_1875_50/
+
+Make sure not to leave blank lines in your conf file. Then produceex the 
+ntupling submission script, and be sure to specify using '-a local' that the
+miniAODs are local, not being pulled from DAS.
+
+./makejobs.py -o /eos/uscms/store/user/apatters/13TeV/t2bw_ntuples_nonmerged/ -t condor -a local -i t2bw_datasets.conf -s submit_t2bw
+
+Execute the script, wait for them to be ntuplized (<1 hr/500 events), and 
+then run interactive merging of all those small ntuples:
+
+./makejobs.py --runmerge --inputdir /eos/uscms/store/user/apatters/13TeV/t2bw_ntuples_nonmerged/ -o /eos/uscms/store/user/apatters/13TeV/t2bw_merged/ -i t2bw_datasets.conf 
+
+The script will be named submitmerge.sh. It's quick (10 mins/600k events).
+Then run postprocessing, which takes the xsecs from the conf file, the
+lumi from the command line (see --lumi), and makes branches with weights in 
+the trees. weight = xsec*lumi/events. The folder name is renamed to Events
+from TestAnalyzer/Events.
+
+./makejobs.py --postprocess --inputdir /eos/uscms/store/user/apatters/13TeV/t2bw_merged/ -o /eos/uscms/store/user/apatters/13TeV/t2bw_merged/ -i t2bw_datasets.conf -t condor --postsuffix postproc
+
+; -----------------------------------------------------------------------------
+;
+; gen step only, to test qcut values
+; -----------------------------------------------------------------------------
+
+The git tutorial at [0] has the steps.
+Convert your LHE file to EDM format (about 15 mins/100k events):
+>>>
+	cmsDriver.py step0 --mc --eventcontent LHE --datatier GEN --conditions MCRUN2_74_V9 --step NONE  --filein file:/eos/uscms/store/user/apatters/lhe/T2tt_850_LSP100x67254_decayed_1000022_100.lhe --fileout file:/eos/uscms/store/user/apatters/EDM.root -n -1 --no_exec
+>>>
+
+Make the py (genfragment_py_GEN.py) for the GEN step on the EDM formatted 
+file (about 1 hour/100k events):
+>>>
+	cmsDriver.py Configuration/Generator/python/genfragment.py --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1 --datatier GEN-SIM --conditions MCRUN2_74_V9 --beamspot NominalCollision2015 --step GEN --magField 38T_PostLS1  --filein file:/eos/uscms/store/user/apatters/EDM.root --fileout 
+file:/eos/uscms/store/user/apatters/GEN.root -n -1 --no_exec
+>>>
+
+To run on CRAB, see above CRAB instructions & scripts. You need ~ 50k events 
+to get a good djr plot.
+
+Edit your rootlogon.C (as attached) to load FW Lite. 
+Plot the DJR distributions with (plotdjr.C is attached):
+	root -l
+	(should see "Loading FW Lite setup")
+	.L plotdjr.C
+	plotdjr("file:/eos/uscms/store/user/apatters/GEN.root","outputbase")
+Reference [4] says what you should be looking for.
+The total DJR (envelope curve) should be smooth within stats.
+If you see a dip, go to lower qcut. If you see a bump, go to higher qcut.
+This is for the DJR(0->1) and DJR(1->2), since for SUSY we don't produce
+more than two extra partons. 
+
+
+; -----------------------------------------------------------------------------
+; 
+; Fastsim production
+; -----------------------------------------------------------------------------
+
+After decaying the LHE as above, see the files/readme in my T2bW fastsim repo.
+There's a problem with FASTSIM consuming memory, and spiking in memory
+for odd events. Here are a few hypernews links on this:
+https://hypernews.cern.ch/HyperNews/CMS/get/famos/612.html
+https://hypernews.cern.ch/HyperNews/CMS/get/famos/532.html
+https://hypernews.cern.ch/HyperNews/CMS/get/famos/377.html
+
+If your CRAB3 Fastsim jobs get killed for excessive memory use (50660) too 
+often, try separating the steps GEN,SIM from the others.
+
+
