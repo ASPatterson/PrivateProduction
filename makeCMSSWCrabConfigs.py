@@ -11,7 +11,8 @@ import sys
 import os 
 import subprocess
 
-templates = ["crabSubmitStep1Template.py", "submitStep1Template_cfg.py",
+templates = ["crabSubmitStep0Template.py", "submitStep0Template_cfg.py",
+             "crabSubmitStep1Template.py", "submitStep1Template_cfg.py",
              "crabSubmitStep2Template.py", "submitStep2Template_cfg.py", 
              "crabSubmitStep3Template.py", "submitStep3Template_cfg.py"]
 #change seeds and masses

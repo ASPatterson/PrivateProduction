@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: step1 --filein file:meow_step2.root --fileout file:SUS-RunIISpring15MiniAODv2-00330.root --mc --eventcontent MINIAODSIM --runUnscheduled --fast --customise SLHCUpgradeSimulations/Configuration/postLS1CustomsPreMixing.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --conditions 74X_mcRun2_asymptotic_v2 --step PAT --python_filename submitStep3Template_cfg.py --no_exec -n -1
+# with command line options: step1 --filein file:meow.root --fileout file:SUS-RunIISpring15MiniAODv2-00330.root --mc --eventcontent MINIAODSIM --runUnscheduled --fast --customise SLHCUpgradeSimulations/Configuration/postLS1CustomsPreMixing.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --conditions 74X_mcRun2_asymptotic_v2 --step PAT --python_filename submitStep3_untemplated_cfg.py --no_exec -n -1
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('PAT')
@@ -25,7 +25,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-#    fileNames = cms.untracked.vstring('file:meow_step2.root'),
+#    fileNames = cms.untracked.vstring('file:meow.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -35,7 +35,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('step3 nevts:-1'),
+    annotation = cms.untracked.string('step1 nevts:-1'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )

@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/SUS-RunIISpring15FSPremix-00218-fragment.py --filein file:T2bW_500_LSP0-run41718_decayed_1000024_250__1000022_1_step1.root --fileout file:SUS-RunIISpring15FSPremix-00218.root --mc --eventcontent MINIAODSIM --fast --runUnscheduled --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --conditions MCRUN2_74_V9 --step PAT --python_filename T2bW_500_LSP0-run41718_decayed_1000024_250__1000022_1_2_cfg.py --no_exec -n 1092
+# with command line options: Configuration/GenProduction/python/SUS-RunIISpring15FSPremix-00218-fragment.py --filein file:T2bW_500_LSP0-run41718_decayed_1000024_250__1000022_1_step1.root --fileout file:SUS-RunIISpring15FSPremix-00218.root --mc --eventcontent MINIAODSIM --fast --runUnscheduled --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --conditions MCRUN2_74_V9 --step PAT --python_filename submitStep2_untemplated_cfg.py --no_exec -n -1
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('PAT')
@@ -24,7 +24,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-#    fileNames = cms.untracked.vstring('file:T2bW_<mSTOP>_seed<seed>_decayed_1000024_<mNLSP>__1000022_<mLSP>_step1.root'),
+#    fileNames = cms.untracked.vstring('file:T2bW_500_LSP0-run41718_decayed_1000024_250__1000022_1_step1.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 

@@ -3,23 +3,25 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'T2bW_mSTOP<mSTOP>_mNLSP<mNLSP>_mLSP<mLSP>_seed<seed>_step2'
-config.General.workArea = 'T2bW_<mSTOP>_<mNLSP>_<mLSP>_step2'
+config.General.requestName = 'T2bW_mSTOP<mSTOP>_mNLSP<mNLSP>_mLSP<mLSP>_seed<seed>_step0'
+config.General.workArea = 'T2bW_<mSTOP>_<mNLSP>_<mLSP>_step0'
 config.General.transferOutputs = True
 config.General.transferLogs = True
 
-config.JobType.pluginName = 'Analysis'
-#config.JobType.psetName = 'T2bW_step2_cfg.py'
-config.JobType.psetName = '<seed>_submitStep2_cfg.py'
+config.JobType.pluginName = 'PrivateMC'
+#config.JobType.psetName = 'T2bW_step0_cfg.py'
+config.JobType.psetName = '<seed>_submitStep0_cfg.py'
 
 config.JobType.generator = 'lhe'
 
-config.Data.outputPrimaryDataset = 'T2bW_<mSTOP>_<mNLSP>_<mLSP>_step2'
+config.Data.outputPrimaryDataset = 'T2bW_<mSTOP>_<mNLSP>_<mLSP>_step0'
 
-config.Data.userInputFiles = open('/afs/cern.ch/work/a/apatters/private/private-T2bW-generation/fileLists/T2bW_mSTOP<mSTOP>_mNLSP<mNLSP>_mLSP<mLSP>_seed<seed>_step1.txt').readlines()
-
-config.Data.splitting='FileBased'
-config.Data.unitsPerJob = 1
+config.Data.splitting = 'EventBased'
+#config.Data.unitsPerJob = 1000
+#NJOBS = 100
+config.Data.unitsPerJob = 500
+NJOBS = 200
+config.Data.totalUnits = config.Data.unitsPerJob * NJOBS
 
 config.Data.outLFNDirBase = '/store/user/apatters/T2bW/'
 #config.Data.outLFNDirBase = '/store/user/%s/' % (getUsernameFromSiteDB())

@@ -21,7 +21,7 @@ cd ../../
 
 #create miniAOD_v2
 cmsDriver.py step1 \
---filein "dbs:/SMS-T2bW_X05_mStop-300to400_mLSP-0to275_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15FSPremix-MCRUN2_74_V9-v1/AODSIM" \
+--filein "file:meow.root" \
 --fileout file:SUS-RunIISpring15MiniAODv2-00330.root \
 --mc \
 --eventcontent MINIAODSIM \
@@ -31,7 +31,7 @@ cmsDriver.py step1 \
 --datatier MINIAODSIM \
 --conditions 74X_mcRun2_asymptotic_v2 \
 --step PAT \
---python_filename SUS-RunIISpring15MiniAODv2-00330_1_cfg.py \
+--python_filename submitStep3_untemplated_cfg.py \
 --no_exec -n -1 || exit $? ; 
 
 
