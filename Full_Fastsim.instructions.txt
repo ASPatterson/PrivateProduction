@@ -1,3 +1,6 @@
+*** I split this file into Fullsim/Fastsim/LHE/ntuplize_README.txt. The links here are still useful.
+
+
 Private production of Full or Fastsim samples
 Updated Feb 2016
 Alex Patterson
