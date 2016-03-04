@@ -32,4 +32,5 @@ http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/
 Or 'crab status --verboseErrors crab_T2bW_mSTOP500_mNLSP250_mLSP1_seed41718_step2', where crab_X is the crab project directory. 
 (between steps) Since the LHE from the first step was split into many jobs, and thus input/output files for later steps, between each step I assemble a txt list of the output roots of the previous step. Copy makeJobRootLists.sh from my dir and edit it for your naming. Run with 'source makeJobRootLists.sh' and, for this mass point and step, it'll assemble a txt list with redirectors under fileLists/, ready for the next CRAB submission. See my crab submission pys for how these txt lists are used as inputs to each non-first step. 
 
-(ntuplizing the miniAODv2) Our ntuplization code can handle many input roots. See NTUPLIZE_README.txt for instructions I use to do it.
+## Ntuplize
+Last summer I edited the nuplization code to handle the many roots (100? 400?) outputted per mass point by the last CMSSW step (conversion to miniAODv2). See ntuplize_README.txt for ntuplization instructions.
