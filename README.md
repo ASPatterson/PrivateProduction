@@ -38,3 +38,64 @@ Or 'crab status --verboseErrors crab_T2bW_mSTOP500_mNLSP250_mLSP1_seed41718_step
 
 ## Ntuplize
 Last summer I edited the nuplization code to handle the many roots (100? 400?) outputted per mass point by the last CMSSW step (conversion to miniAODv2). See ntuplize_README.txt for ntuplization instructions.
+
+## Links
+Tutorial for everything (Full and Fast, and even making LHE)
+[0] https://github.com/CMS-SUS-XPAG/GenLHEfiles/blob/master/Run2Mechanism/README.md
+
+A long presentation on generators, jet matching, (x)qcut
+[1] https://cp3.irmp.ucl.ac.be/projects/madgraph/attachment/wiki/FHEP/Mattelaer_parton_shower_matching_merging.pdf
+
+CRAB3
+[2] https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/Crab3DataHandling
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3AdvancedTutorial
+	see exercise 2 for file-based splitting in crab config
+
+CRAB job monitoring (delay < about 1hour)
+http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/
+
+Short description of (x)qcut
+[3] http://hep.ucsb.edu/people/cag/Matching.pdf
+
+How to tell if you got qcut correct
+[4] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSubgroupMC#Measure_proper_value_of_qCut
+
+Global tags reference
+[5] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFrontierConditions#Special_Global_Tags_for_Run2_MC
+
+FastSim twiki
+[6] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFastSimulationExamples#Run2_Spring15_recipe
+
+A mention about a certain ignorable Pythia8 error message ... 
+[7] https://twiki.cern.ch/twiki/bin/view/MPGD/DisplacedEMuHLTStudy
+
+Defines Premixing, also see [6]
+[8] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSimulation#Pre_Mixing_Instructions
+
+cmsDriver
+[9] https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFastSimulation
+
+Twiki on specific RunIISpring15DR74 campaign
+[10] https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVMCcampaignRunIISpring15DR74x
+
+Our miniaod sources
+[11] https://github.com/UCSBSusy/13TeVAnalysis/blob/74X_prod_v2/AnalysisBase/Analyzer/run/datasets.conf
+
+mcm
+[12] https://cms-pdmv.cern.ch/mcm/requests?produce=%2FTTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8%2FRunIIWinter15GS-MCRUN2_71_V1-v2%2FGEN-SIM&page=0&shown=17516725375
+
+das
+[13] https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2Fglobal&input=dataset%3D%2F*%2F*RunIISpring15DR74*%2FMINIAODSIM
+
+cmsDriver common error solution (VtxSmeared)
+[14] https://twiki.cern.ch/twiki/bin/view/Main/RobinCMSSWErrors
+
+LHE decay block format
+[15] http://xxx.lanl.gov/pdf/hep-ph/0311123v4.pdf
+
+SUSY xsecs
+[20]
+https://twiki.cern.ch/twiki/bin/view/LHCPhysics/
+https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SUSYCrossSections13TeVstopsbottom
