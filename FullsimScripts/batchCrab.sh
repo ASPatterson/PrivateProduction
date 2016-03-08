@@ -16,7 +16,11 @@ crabString="crabSubmitStep"$step".py"
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 source /cvmfs/cms.cern.ch/crab3/crab.sh
-voms-proxy-init --voms cms --valid 168:00
+#voms-proxy-init --voms cms --valid 168:00
+while  ! voms-proxy-info -exist
+do echo "No Proxy found issuing \"voms-proxy-init -voms cms\""
+   voms-proxy-init -hours 168 -voms cms
+done
 
 if [[ $step = "0" ]]; then
   cd CMSSW_7_1_20_patch3/src/
