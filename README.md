@@ -29,13 +29,30 @@ https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial
 (try a few events) Copy a sample chain of the injected CMSSW config files (eg NNNNN_submitStep{0-3}_cfg.py) out of the directory made in the last step and edit them to access the LHE properly (first step), and to use local ('file:X.root') filenames for the input/output of each step. Also change the maxEvents to 100. Use cmsRun interactively starting from the first step ('cmsRun -p NNNNN_submitStep0_cfg.py'). After the last, it should be in miniAODv2 format ready for ntuplization and testing. 
 
 (submitting to CRAB) Copy also batchCrab.sh from my dir and edit it for your conventions, and to use the right CMSSW distributions depending on the step number. Check it is set to the right step number. Run 'source batchCrab.sh' to submit all seeds of the mass point to CRAB3. The CRAB project directories are in a (local) subdir from the injected config files, eg
-/private-T2bW-generation/mSTOP500_mNLSP250_mLSP1/T2bW_500_250_1_step0/crab_T2bW_mSTOP500_mNLSP250_mLSP1_seed41718_step2
+/private-T2bW-generation/mSTOP500_mNLSP250_mLSP1/T2bW_500_250_1_step0/crab_T2bW_mSTOP500_mNLSP250_mLSP1_seed41718_step2. Section on proxy troubles below.
 
 (checking CRAB status)
 The dashboard!
 http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/
 Or 'crab status --verboseErrors crab_T2bW_mSTOP500_mNLSP250_mLSP1_seed41718_step2', where crab_X is the crab project directory. 
 (between steps) Since the LHE from the first step was split into many jobs, and thus input/output files for later steps, between each step I assemble a txt list of the output roots of the previous step. Copy makeJobRootLists.sh from my dir and edit it for your naming. Run with 'source makeJobRootLists.sh' and, for this mass point and step, it'll assemble a txt list with redirectors under fileLists/, ready for the next CRAB submission. See my crab submission pys for how these txt lists are used as inputs to each non-first step. 
+
+## Proxy troubles
+At fnal one can pivot to another username (we all set access lists in our ~/.krb5 or somewhere similar last summer) using 'ksu <new username>'. Then renew the proxy with the usual 'voms-proxy-init --voms cms --valid 168:00'. If you get the below error while submitt CRAB jobs:
+
+Problems delegating My-proxy. It seems your proxy has not been delegated to myproxy. Pl
+ease check the logfile for the exact error (it might simply you typed a wrong password)
+
+then follow these instructions to destroy your old proxy from MyProxy and to submit a new one. A latest post on HyperNews by someone else solved this problem for me. References: 
+https://egee-uig.web.cern.ch/egee-uig/production_pages/ProxyRenewal.html https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#crab_command_fails_with_Impossib
+
+Grep a failed project directory's crab.log for 'myproxy', copy the argument of the -l switch (long hash, it's a username), and use it to destroy the old proxy:
+
+myproxy-destroy -l <long hash> -s myproxy.cern.ch
+
+And then re-initialize the proxy in myproxy (no long has req'd):
+
+myproxy-init -s myproxy.cern.ch -d -n
 
 ## Ntuplize
 Last summer I edited the nuplization code to handle the many roots (100? 400?) outputted per mass point by the last CMSSW step (conversion to miniAODv2). See ntuplize_README.txt for ntuplization instructions.
