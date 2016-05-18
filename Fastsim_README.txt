@@ -1,9 +1,8 @@
 Small notes / problems encountered during Fastsim production
 
-Table of contents is below. Here's an easter egg I found. Try killing it.
-edmMakePhDThesis
-Here's its code if you want to cheat:
-https://github.com/ggovi/cmssw-old/blob/45003bdb1fdf7a9a497f9be727e6b8218cdbd330/PhysicsTools/PythonAnalysis/scripts/edmMakePhDThesis
+** The main problem with FastSim production is the low memory (2GB, sometimes able to be increased depending on site) of worker nodes compared to that required by FastSim. There are a few threads in the FastSim HN about this problem. Large-pileup events take much more memory and make for a spiky memory consumption plot. As soon as it exceeds 2 GB, the job is killed with error code 50660 (memory exceeded). Reduce the number of events/job to 250 (worked for me) or even to 150 for some tricky mass points. This causes many very short jobs which ... isn't good. See https://hypernews.cern.ch/HyperNews/CMS/get/cernCompAnnounce/1117.html.
+
+* The second biggest problem was that Step 1 succeeds in the Dashboard but Steps 2, 3 eventually fail. This will eventually be fixed on their side. Look for the existence of the output roots of the job to know if the job succeeded, and after Step 3 look to DAS to see if it published. 
 
 Here's the help for the edm tools I reference:
 https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookEdmUtilities
